@@ -3,606 +3,595 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Skin Studio S - Cuidado y Bienestar de la Piel</title>
+    <title>Skin Studio S — Cuidado y Bienestar de la Piel</title>
+    <meta name="description" content="Skin Studio S — Cosmetología profesional y tratamientos faciales y corporales en Atizapán de Zaragoza. Agenda tu cita con Sarai.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
         :root {
-            --primary: #2d2d2d;
-            --secondary: #f5f5f5;
-            --accent: #d4af37;
-            --text: #333;
-            --light-text: #666;
+            --cream:       #FBF7F2;
+            --cream-dark:  #F3EDE4;
+            --sand:        #D4C5B2;
+            --sand-light:  #E8DDD0;
+            --sage:        #9EAE93;
+            --sage-dark:   #7A8E6E;
+            --rose:        #C8A992;
+            --rose-dark:   #B08C74;
+            --charcoal:    #2E2A27;
+            --charcoal-soft:#3D3835;
+            --warm-white:  #FEFDFB;
+            --text-dark:   #3A3632;
+            --text-body:   #5C5651;
+            --text-light:  #8A837D;
+            --gold-accent: #BFA67A;
+            --shadow-sm:   0 2px 8px rgba(46,42,39,0.06);
+            --shadow-md:   0 8px 30px rgba(46,42,39,0.08);
+            --shadow-lg:   0 20px 60px rgba(46,42,39,0.12);
+            --radius:      12px;
+            --radius-lg:   20px;
+            --transition:  0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
         }
 
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            color: var(--text);
-            line-height: 1.6;
-            background: #fafafa;
-        }
+        html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+        body { font-family: 'Lato', -apple-system, BlinkMacSystemFont, sans-serif; color: var(--text-body); line-height: 1.7; background: var(--cream); overflow-x: hidden; }
+        img { display: block; max-width: 100%; }
+        a { text-decoration: none; color: inherit; }
 
-        /* Header & Navigation */
-        header {
-            background: var(--primary);
-            color: white;
-            padding: 1.5rem 2rem;
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-        }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 clamp(1.5rem, 4vw, 3rem); }
+        .reveal { opacity: 0; transform: translateY(32px); transition: opacity 0.8s ease, transform 0.8s ease; }
+        .reveal.visible { opacity: 1; transform: translateY(0); }
 
-        nav {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
+        /* HEADER */
+        .site-header { position: fixed; top: 0; left: 0; width: 100%; z-index: 1000; padding: 1.25rem 0; transition: background var(--transition), padding var(--transition), box-shadow var(--transition); }
+        .site-header.scrolled { background: rgba(251,247,242,0.92); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); padding: 0.75rem 0; box-shadow: 0 1px 20px rgba(46,42,39,0.06); }
+        .nav-inner { display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-family: 'Cormorant Garamond', serif; font-size: clamp(1.4rem, 2.5vw, 1.8rem); font-weight: 600; letter-spacing: 0.15em; color: var(--warm-white); transition: color var(--transition); }
+        .site-header.scrolled .logo { color: var(--charcoal); }
+        .nav-links { display: flex; list-style: none; gap: 2.5rem; }
+        .nav-links a { font-size: 0.85rem; font-weight: 400; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(255,255,255,0.85); position: relative; transition: color var(--transition); }
+        .nav-links a::after { content: ''; position: absolute; bottom: -4px; left: 0; width: 0; height: 1px; background: var(--gold-accent); transition: width var(--transition); }
+        .nav-links a:hover::after { width: 100%; }
+        .site-header.scrolled .nav-links a { color: var(--text-body); }
+        .site-header.scrolled .nav-links a:hover { color: var(--charcoal); }
 
-        .logo {
-            font-size: 1.8rem;
-            font-weight: 700;
-            letter-spacing: 2px;
-            color: var(--accent);
-        }
+        .burger { display: none; flex-direction: column; gap: 5px; cursor: pointer; background: none; border: none; padding: 4px; z-index: 1001; }
+        .burger span { display: block; width: 24px; height: 2px; background: var(--warm-white); border-radius: 2px; transition: all 0.3s ease; }
+        .site-header.scrolled .burger span { background: var(--charcoal); }
+        .burger.active span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+        .burger.active span:nth-child(2) { opacity: 0; }
+        .burger.active span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
 
-        nav ul {
-            display: flex;
-            list-style: none;
-            gap: 2rem;
-        }
+        /* HERO */
+        .hero { position: relative; min-height: 100vh; display: flex; align-items: center; justify-content: center; overflow: hidden; }
+        .hero-bg { position: absolute; inset: 0; background: url('assets/images/relaxation.jpg') center/cover no-repeat; transform: scale(1.08); transition: transform 8s ease; }
+        .hero.visible .hero-bg { transform: scale(1); }
+        .hero-overlay { position: absolute; inset: 0; background: linear-gradient(160deg, rgba(46,42,39,0.55) 0%, rgba(46,42,39,0.35) 50%, rgba(158,174,147,0.2) 100%); }
+        .hero-content { position: relative; z-index: 2; text-align: center; padding: 2rem; max-width: 700px; }
+        .hero-eyebrow { font-size: 0.8rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--sand-light); margin-bottom: 1.5rem; opacity: 0; transform: translateY(20px); animation: fadeUp 1s 0.3s ease forwards; }
+        .hero-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(3rem, 7vw, 5.5rem); font-weight: 300; color: var(--warm-white); line-height: 1.05; margin-bottom: 1.5rem; opacity: 0; transform: translateY(30px); animation: fadeUp 1s 0.5s ease forwards; }
+        .hero-title em { font-style: italic; font-weight: 400; }
+        .hero-sub { font-size: clamp(1rem, 1.8vw, 1.15rem); color: rgba(255,255,255,0.8); font-weight: 300; line-height: 1.8; max-width: 480px; margin: 0 auto 2.5rem; opacity: 0; transform: translateY(20px); animation: fadeUp 1s 0.7s ease forwards; }
+        .hero-cta { opacity: 0; transform: translateY(20px); animation: fadeUp 1s 0.9s ease forwards; }
+        @keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
 
-        nav a {
-            color: white;
-            text-decoration: none;
-            font-size: 0.95rem;
-            transition: color 0.3s;
-        }
+        .scroll-hint { position: absolute; bottom: 2.5rem; left: 50%; transform: translateX(-50%); z-index: 2; display: flex; flex-direction: column; align-items: center; gap: 0.5rem; opacity: 0; animation: fadeUp 1s 1.2s ease forwards; }
+        .scroll-hint span { font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(255,255,255,0.5); }
+        .scroll-line { width: 1px; height: 40px; background: linear-gradient(to bottom, rgba(255,255,255,0.5), transparent); animation: scrollPulse 2s ease infinite; }
+        @keyframes scrollPulse { 0%, 100% { opacity: 0.3; transform: scaleY(0.7); } 50% { opacity: 1; transform: scaleY(1); } }
 
-        nav a:hover {
-            color: var(--accent);
-        }
+        /* BUTTONS */
+        .btn { display: inline-flex; align-items: center; gap: 0.5rem; font-family: 'Lato', sans-serif; font-size: 0.8rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; padding: 1rem 2.5rem; border-radius: 50px; border: none; cursor: pointer; transition: all var(--transition); position: relative; overflow: hidden; }
+        .btn-primary { background: var(--gold-accent); color: var(--charcoal); }
+        .btn-primary:hover { background: #CBB58B; transform: translateY(-2px); box-shadow: 0 12px 35px rgba(191,166,122,0.3); }
+        .btn-outline { background: transparent; color: var(--charcoal); border: 1.5px solid var(--sand); }
+        .btn-outline:hover { background: var(--charcoal); color: var(--warm-white); border-color: var(--charcoal); }
+        .btn-white { background: rgba(255,255,255,0.15); color: var(--warm-white); border: 1.5px solid rgba(255,255,255,0.35); backdrop-filter: blur(8px); }
+        .btn-white:hover { background: var(--warm-white); color: var(--charcoal); }
+        .btn-whatsapp { background: #25D366; color: #fff; }
+        .btn-whatsapp:hover { background: #1EBE57; transform: translateY(-2px); box-shadow: 0 12px 35px rgba(37,211,102,0.25); }
 
-        /* Hero Section */
-        .hero {
-            background: linear-gradient(rgba(45, 45, 45, 0.7), rgba(45, 45, 45, 0.7)), url('assets/images/relaxation.jpg');
-            background-size: cover;
-            background-position: center;
-            color: white;
-            padding: 8rem 2rem;
-            text-align: center;
-            min-height: 600px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-        }
+        /* SECTIONS */
+        .section { padding: clamp(4rem, 8vw, 7rem) 0; }
+        .section-label { font-size: 0.75rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--sage); text-align: center; margin-bottom: 1rem; }
+        .section-heading { font-family: 'Cormorant Garamond', serif; font-size: clamp(2.2rem, 4.5vw, 3.2rem); font-weight: 400; color: var(--charcoal); text-align: center; margin-bottom: 1rem; line-height: 1.15; }
+        .section-divider { width: 50px; height: 1px; background: var(--gold-accent); margin: 1.5rem auto 0; }
 
-        .hero-content h1 {
-            font-size: 3.5rem;
-            margin-bottom: 1rem;
-            font-weight: 700;
-            letter-spacing: 1px;
-        }
+        /* ABOUT */
+        .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(2rem, 5vw, 5rem); align-items: center; margin-top: clamp(3rem, 5vw, 4rem); }
+        .about-image-wrap { position: relative; }
+        .about-image-wrap::before { content: ''; position: absolute; top: -16px; left: -16px; width: 100%; height: 100%; border: 1px solid var(--sand); border-radius: var(--radius-lg); z-index: 0; }
+        .about-image-wrap img { position: relative; z-index: 1; width: 100%; height: 500px; object-fit: cover; border-radius: var(--radius-lg); box-shadow: var(--shadow-lg); }
+        .about-text { padding: 1rem 0; }
+        .about-label { font-size: 0.75rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--sage); margin-bottom: 1rem; }
+        .about-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(2rem, 3.5vw, 2.8rem); font-weight: 400; color: var(--charcoal); margin-bottom: 0.5rem; line-height: 1.2; }
+        .about-subtitle { font-family: 'Cormorant Garamond', serif; font-size: 1.3rem; font-style: italic; color: var(--rose); margin-bottom: 2rem; }
+        .about-body p { margin-bottom: 1.25rem; font-size: 1.05rem; line-height: 1.85; color: var(--text-body); }
+        .about-stats { display: flex; gap: 2.5rem; margin-top: 2.5rem; padding-top: 2rem; border-top: 1px solid var(--sand-light); }
+        .stat-item { text-align: center; }
+        .stat-number { font-family: 'Cormorant Garamond', serif; font-size: 2.5rem; font-weight: 600; color: var(--charcoal); line-height: 1; }
+        .stat-label { font-size: 0.75rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-light); margin-top: 0.4rem; }
 
-        .hero-content p {
-            font-size: 1.3rem;
-            margin-bottom: 2rem;
-            max-width: 600px;
-            margin-left: auto;
-            margin-right: auto;
-            font-weight: 300;
-            line-height: 1.8;
-        }
+        /* SERVICES */
+        .services-section { background: var(--warm-white); }
+        .services-tabs { display: flex; justify-content: center; gap: 0.5rem; margin: 3rem auto 2.5rem; flex-wrap: wrap; }
+        .tab-btn { font-family: 'Lato', sans-serif; font-size: 0.8rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; padding: 0.65rem 1.8rem; border-radius: 50px; border: 1.5px solid var(--sand); background: transparent; color: var(--text-body); cursor: pointer; transition: all var(--transition); }
+        .tab-btn:hover, .tab-btn.active { background: var(--charcoal); border-color: var(--charcoal); color: var(--warm-white); }
+        .services-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 1.5rem; margin-top: 1rem; }
+        .service-card { background: var(--cream); border-radius: var(--radius-lg); overflow: hidden; transition: all var(--transition); position: relative; }
+        .service-card:hover { transform: translateY(-6px); box-shadow: var(--shadow-lg); }
+        .service-img-wrap { position: relative; height: 220px; overflow: hidden; }
+        .service-img-wrap img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s ease; }
+        .service-card:hover .service-img-wrap img { transform: scale(1.08); }
+        .service-badge { position: absolute; top: 1rem; left: 1rem; font-size: 0.65rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; padding: 0.35rem 0.9rem; border-radius: 50px; background: rgba(255,255,255,0.9); color: var(--charcoal); backdrop-filter: blur(4px); }
+        .service-body { padding: 1.5rem; }
+        .service-name { font-family: 'Cormorant Garamond', serif; font-size: 1.4rem; font-weight: 500; color: var(--charcoal); margin-bottom: 0.4rem; }
+        .service-price { font-family: 'Cormorant Garamond', serif; font-size: 1.6rem; font-weight: 600; color: var(--rose-dark); }
+        .service-price span { font-size: 0.85rem; font-weight: 400; color: var(--text-light); margin-left: 0.3rem; }
 
-        .cta-button {
-            display: inline-block;
-            background: var(--accent);
-            color: var(--primary);
-            padding: 1rem 2.5rem;
-            text-decoration: none;
-            font-weight: 600;
-            border-radius: 4px;
-            transition: all 0.3s;
-            font-size: 1rem;
-            letter-spacing: 1px;
-        }
+        /* MARQUEE */
+        .experience-strip { background: var(--charcoal); padding: 1.5rem 0; overflow: hidden; position: relative; }
+        .marquee-track { display: flex; gap: 3rem; animation: marquee 25s linear infinite; width: max-content; }
+        .marquee-item { font-family: 'Cormorant Garamond', serif; font-size: 1.1rem; font-weight: 400; font-style: italic; color: var(--sand-light); white-space: nowrap; display: flex; align-items: center; gap: 3rem; }
+        .marquee-item::after { content: '\2726'; font-style: normal; font-size: 0.6rem; color: var(--gold-accent); }
+        @keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
 
-        .cta-button:hover {
-            background: #e6c200;
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(212, 175, 55, 0.3);
-        }
+        /* TESTIMONIALS */
+        .testimonials-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; margin-top: 3.5rem; }
+        .testimonial-card { background: var(--warm-white); border-radius: var(--radius-lg); padding: 2.5rem; box-shadow: var(--shadow-sm); border: 1px solid rgba(212,197,178,0.3); transition: all var(--transition); }
+        .testimonial-card:hover { box-shadow: var(--shadow-md); transform: translateY(-4px); }
+        .testimonial-stars { color: var(--gold-accent); font-size: 0.85rem; letter-spacing: 0.15em; margin-bottom: 1.25rem; }
+        .testimonial-text { font-family: 'Cormorant Garamond', serif; font-size: 1.2rem; font-style: italic; color: var(--charcoal); line-height: 1.7; margin-bottom: 1.5rem; }
+        .testimonial-author { display: flex; align-items: center; gap: 1rem; }
+        .author-avatar { width: 44px; height: 44px; border-radius: 50%; background: var(--sand-light); display: flex; align-items: center; justify-content: center; font-family: 'Cormorant Garamond', serif; font-size: 1.1rem; font-weight: 600; color: var(--charcoal); flex-shrink: 0; }
+        .author-name { font-weight: 700; font-size: 0.85rem; color: var(--charcoal); }
+        .author-detail { font-size: 0.75rem; color: var(--text-light); margin-top: 0.15rem; }
 
-        /* About Sarai */
-        .about {
-            max-width: 1200px;
-            margin: 4rem auto;
-            padding: 0 2rem;
-        }
+        /* GALLERY */
+        .gallery-grid { display: grid; grid-template-columns: repeat(12, 1fr); grid-auto-rows: 220px; gap: 1rem; margin-top: 3.5rem; }
+        .gallery-item { border-radius: var(--radius); overflow: hidden; position: relative; cursor: pointer; }
+        .gallery-item:nth-child(1) { grid-column: span 5; grid-row: span 2; }
+        .gallery-item:nth-child(2) { grid-column: span 4; }
+        .gallery-item:nth-child(3) { grid-column: span 3; }
+        .gallery-item:nth-child(4) { grid-column: span 3; }
+        .gallery-item:nth-child(5) { grid-column: span 4; }
+        .gallery-item img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.8s ease; }
+        .gallery-item:hover img { transform: scale(1.06); }
+        .gallery-caption { position: absolute; bottom: 0; left: 0; right: 0; padding: 2rem 1.5rem 1.25rem; background: linear-gradient(to top, rgba(46,42,39,0.7), transparent); color: white; font-size: 0.85rem; font-weight: 400; letter-spacing: 0.05em; opacity: 0; transform: translateY(8px); transition: all 0.4s ease; }
+        .gallery-item:hover .gallery-caption { opacity: 1; transform: translateY(0); }
 
-        .section-title {
-            text-align: center;
-            font-size: 2.5rem;
-            margin-bottom: 3rem;
-            color: var(--primary);
-            position: relative;
-            padding-bottom: 1rem;
-        }
+        /* INFO */
+        .info-section { background: var(--charcoal); color: var(--cream); }
+        .info-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 3rem; margin-top: 3.5rem; }
+        .info-card { text-align: center; padding: 2.5rem 1.5rem; border-radius: var(--radius-lg); background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.06); }
+        .info-icon { font-size: 1.8rem; margin-bottom: 1.25rem; }
+        .info-card h3 { font-family: 'Cormorant Garamond', serif; font-size: 1.4rem; font-weight: 500; color: var(--sand-light); margin-bottom: 1rem; }
+        .info-card p, .info-card li { color: rgba(255,255,255,0.6); font-size: 0.95rem; line-height: 1.8; }
+        .hours-list { list-style: none; }
+        .hours-list li { padding: 0.35rem 0; }
+        .hours-list strong { color: var(--sand-light); font-weight: 700; }
 
-        .section-title::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 80px;
-            height: 3px;
-            background: var(--accent);
-        }
+        /* CTA */
+        .cta-section { background: linear-gradient(135deg, var(--cream) 0%, var(--cream-dark) 100%); text-align: center; }
+        .cta-card { max-width: 600px; margin: 3rem auto 0; background: var(--warm-white); border-radius: var(--radius-lg); padding: clamp(2.5rem, 5vw, 4rem); box-shadow: var(--shadow-lg); border: 1px solid rgba(212,197,178,0.2); }
+        .cta-card p { font-size: 1.05rem; color: var(--text-body); line-height: 1.8; margin-bottom: 2rem; }
+        .cta-buttons { display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap; }
+        .cta-phone-note { margin-top: 1.5rem; font-size: 0.85rem; color: var(--text-light); }
 
-        .about-content {
-            background: white;
-            padding: 3rem;
-            border-radius: 8px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
-            text-align: center;
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 2rem;
-            align-items: center;
-        }
+        /* FOOTER */
+        .site-footer { background: var(--charcoal); color: rgba(255,255,255,0.4); text-align: center; padding: 3rem 2rem 2rem; }
+        .footer-logo { font-family: 'Cormorant Garamond', serif; font-size: 1.4rem; font-weight: 500; letter-spacing: 0.15em; color: var(--sand-light); margin-bottom: 0.75rem; }
+        .footer-tagline { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 1rem; color: rgba(255,255,255,0.3); margin-bottom: 2rem; }
+        .footer-links { display: flex; justify-content: center; gap: 2rem; margin-bottom: 2rem; flex-wrap: wrap; }
+        .footer-links a { font-size: 0.8rem; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255,255,255,0.4); transition: color var(--transition); }
+        .footer-links a:hover { color: var(--sand-light); }
+        .footer-copy { font-size: 0.78rem; padding-top: 1.5rem; border-top: 1px solid rgba(255,255,255,0.06); }
 
-        .about-text h2 {
-            color: var(--accent);
-            margin-bottom: 1rem;
-            font-size: 1.5rem;
+        /* RESPONSIVE */
+        @media (max-width: 1024px) {
+            .gallery-grid { grid-template-columns: repeat(6, 1fr); grid-auto-rows: 180px; }
+            .gallery-item:nth-child(1) { grid-column: span 6; grid-row: span 1; }
+            .gallery-item:nth-child(2) { grid-column: span 3; }
+            .gallery-item:nth-child(3) { grid-column: span 3; }
+            .gallery-item:nth-child(4) { grid-column: span 3; }
+            .gallery-item:nth-child(5) { grid-column: span 3; }
         }
-
-        .about-text p {
-            color: var(--light-text);
-            font-size: 1.1rem;
-            line-height: 1.8;
-            text-align: left;
-        }
-
-        .about-image {
-            border-radius: 8px;
-            overflow: hidden;
-        }
-
-        .about-image img {
-            width: 100%;
-            height: auto;
-            display: block;
-        }
-
-        /* Services Section */
-        .services {
-            max-width: 1200px;
-            margin: 4rem auto;
-            padding: 0 2rem;
-        }
-
-        .services-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
-            margin-top: 2rem;
-        }
-
-        .service-card {
-            background: white;
-            border-radius: 8px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
-            transition: all 0.3s;
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .service-image {
-            width: 100%;
-            height: 200px;
-            overflow: hidden;
-            background: #f0f0f0;
-        }
-
-        .service-image img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .service-content {
-            padding: 2rem;
-            flex-grow: 1;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .service-card:hover {
-            box-shadow: 0 8px 25px rgba(212, 175, 55, 0.2);
-            transform: translateY(-4px);
-        }
-
-        .service-category {
-            color: var(--accent);
-            font-size: 0.9rem;
-            font-weight: 700;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-            margin-bottom: 1rem;
-        }
-
-        .service-card h3 {
-            color: var(--primary);
-            margin-bottom: 0.5rem;
-            font-size: 1.3rem;
-        }
-
-        .service-price {
-            color: var(--accent);
-            font-size: 1.5rem;
-            font-weight: 700;
-            margin-top: auto;
-        }
-
-        /* Gallery Section */
-        .gallery {
-            max-width: 1200px;
-            margin: 4rem auto;
-            padding: 0 2rem;
-        }
-
-        .gallery-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 1.5rem;
-            margin-top: 2rem;
-        }
-
-        .gallery-item {
-            border-radius: 8px;
-            overflow: hidden;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
-            transition: transform 0.3s;
-        }
-
-        .gallery-item:hover {
-            transform: scale(1.02);
-        }
-
-        .gallery-item img {
-            width: 100%;
-            height: 300px;
-            object-fit: cover;
-            display: block;
-        }
-
-        /* Info Section */
-        .info-section {
-            background: var(--primary);
-            color: white;
-            padding: 3rem 2rem;
-            margin-top: 4rem;
-        }
-
-        .info-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 3rem;
-        }
-
-        .info-card h3 {
-            color: var(--accent);
-            margin-bottom: 1rem;
-            font-size: 1.3rem;
-        }
-
-        .info-card p {
-            font-size: 1rem;
-            line-height: 1.8;
-            color: #ccc;
-        }
-
-        .hours-list {
-            list-style: none;
-        }
-
-        .hours-list li {
-            padding: 0.5rem 0;
-            color: #ccc;
-        }
-
-        .hours-list strong {
-            color: var(--accent);
-        }
-
-        /* Contact Section */
-        .contact {
-            max-width: 1200px;
-            margin: 4rem auto;
-            padding: 0 2rem;
-            text-align: center;
-        }
-
-        .contact-buttons {
-            display: flex;
-            gap: 1rem;
-            justify-content: center;
-            margin-top: 2rem;
-            flex-wrap: wrap;
-        }
-
-        .btn-secondary {
-            display: inline-block;
-            background: white;
-            color: var(--primary);
-            padding: 0.8rem 2rem;
-            text-decoration: none;
-            font-weight: 600;
-            border-radius: 4px;
-            transition: all 0.3s;
-            border: 2px solid var(--primary);
-        }
-
-        .btn-secondary:hover {
-            background: var(--primary);
-            color: white;
-        }
-
-        /* Footer */
-        footer {
-            background: var(--primary);
-            color: #ccc;
-            text-align: center;
-            padding: 2rem;
-            margin-top: 4rem;
-            font-size: 0.9rem;
-        }
-
-        footer p {
-            margin: 0.5rem 0;
-        }
-
-        /* Responsive */
         @media (max-width: 768px) {
-            nav ul {
-                display: none;
-            }
-
-            .hero-content h1 {
-                font-size: 2.2rem;
-            }
-
-            .hero-content p {
-                font-size: 1.1rem;
-            }
-
-            .section-title {
-                font-size: 2rem;
-            }
-
-            .about-content {
-                grid-template-columns: 1fr;
-            }
-
-            .about-text p {
-                text-align: center;
-            }
-
-            .info-container {
-                grid-template-columns: 1fr;
-            }
+            .nav-links { display: none; position: fixed; top: 0; right: 0; width: 280px; height: 100vh; background: var(--cream); flex-direction: column; justify-content: center; align-items: center; gap: 2rem; box-shadow: -10px 0 40px rgba(0,0,0,0.1); }
+            .nav-links.open { display: flex; }
+            .nav-links a { color: var(--charcoal) !important; font-size: 1rem; }
+            .burger { display: flex; }
+            .about-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+            .about-image-wrap { order: -1; }
+            .about-image-wrap img { height: 350px; }
+            .about-stats { justify-content: center; }
+            .services-grid { grid-template-columns: 1fr 1fr; gap: 1rem; }
+            .info-grid { grid-template-columns: 1fr; gap: 1.5rem; }
+            .gallery-grid { grid-template-columns: 1fr 1fr; grid-auto-rows: 160px; }
+            .gallery-item:nth-child(1) { grid-column: span 2; grid-row: span 1; }
+            .gallery-item:nth-child(2) { grid-column: span 1; }
+            .gallery-item:nth-child(3) { grid-column: span 1; }
+            .gallery-item:nth-child(4) { grid-column: span 1; }
+            .gallery-item:nth-child(5) { grid-column: span 1; }
+            .testimonials-grid { grid-template-columns: 1fr; }
+        }
+        @media (max-width: 480px) {
+            .services-grid { grid-template-columns: 1fr; }
+            .hero-title { font-size: 2.6rem; }
+            .gallery-grid { grid-template-columns: 1fr; grid-auto-rows: 200px; }
+            .gallery-item:nth-child(1) { grid-column: span 1; }
         }
     </style>
 </head>
 <body>
-    <!-- Header -->
-    <header>
-        <nav>
-            <div class="logo">SKIN STUDIO S</div>
-            <ul>
-                <li><a href="#about">Sobre Sarai</a></li>
-                <li><a href="#services">Servicios</a></li>
-                <li><a href="#gallery">Galería</a></li>
-                <li><a href="#contact">Contacto</a></li>
-            </ul>
-        </nav>
+    <header class="site-header" id="header">
+        <div class="container">
+            <div class="nav-inner">
+                <a href="#" class="logo">SKIN STUDIO S</a>
+                <ul class="nav-links" id="navLinks">
+                    <li><a href="#about">Sobre Sarai</a></li>
+                    <li><a href="#services">Servicios</a></li>
+                    <li><a href="#gallery">Galería</a></li>
+                    <li><a href="#contact">Contacto</a></li>
+                </ul>
+                <button class="burger" id="burger" aria-label="Menú">
+                    <span></span><span></span><span></span>
+                </button>
+            </div>
+        </div>
     </header>
 
-    <!-- Hero -->
-    <section class="hero">
+    <section class="hero" id="hero">
+        <div class="hero-bg"></div>
+        <div class="hero-overlay"></div>
         <div class="hero-content">
-            <h1>Skin Studio S</h1>
-            <p>Cuidado y bienestar de la piel diseñado especialmente para ti</p>
-            <a href="#contact" class="cta-button">AGENDAR CITA</a>
+            <p class="hero-eyebrow">Cosmetología Profesional</p>
+            <h1 class="hero-title">Tu piel merece<br>un <em>cuidado único</em></h1>
+            <p class="hero-sub">Tratamientos faciales y corporales diseñados para realzar tu belleza natural en un espacio de calma y bienestar.</p>
+            <div class="hero-cta">
+                <a href="#contact" class="btn btn-white">Agendar Cita</a>
+            </div>
+        </div>
+        <div class="scroll-hint">
+            <span>Descubrir</span>
+            <div class="scroll-line"></div>
         </div>
     </section>
 
-    <!-- About -->
-    <section class="about" id="about">
-        <h2 class="section-title">Sobre Sarai</h2>
-        <div class="about-content">
-            <div class="about-text">
-                <h2>Cosmetóloga Certificada</h2>
-                <p>Con más de 3 años de experiencia dedicándome a lo que más me apasiona: el cuidado y bienestar de tu piel.</p>
-                <p style="margin-top: 1.5rem;">Quiero que te sientas con total confianza y seguridad de que, en mis manos, recibirás una experiencia increíble de relajación y cuidado personal.</p>
-            </div>
-            <div class="about-image">
-                <img src="assets/images/wellness.jpg" alt="Sarai - Cosmetóloga Certificada">
-            </div>
-        </div>
-    </section>
-
-    <!-- Services -->
-    <section class="services" id="services">
-        <h2 class="section-title">Servicios</h2>
-        
-        <div class="services-grid">
-            <!-- Facial Services -->
-            <div class="service-card">
-                <div class="service-image">
-                    <img src="assets/images/treatment-1.jpg" alt="Limpieza Facial">
+    <section class="section" id="about">
+        <div class="container">
+            <div class="about-grid">
+                <div class="about-image-wrap reveal">
+                    <img src="assets/images/wellness.jpg" alt="Sarai — Cosmetóloga Certificada" loading="lazy">
                 </div>
-                <div class="service-content">
-                    <div class="service-category">Facial</div>
-                    <h3>Limpieza Facial</h3>
-                    <div class="service-price">$650</div>
-                </div>
-            </div>
-
-            <div class="service-card">
-                <div class="service-image">
-                    <img src="assets/images/product-handling.jpg" alt="Tratamiento Revitalizante">
-                </div>
-                <div class="service-content">
-                    <div class="service-category">Facial</div>
-                    <h3>Revitalizante</h3>
-                    <div class="service-price">$600</div>
-                </div>
-            </div>
-
-            <div class="service-card">
-                <div class="service-image">
-                    <img src="assets/images/treatment-1.jpg" alt="Control Acné">
-                </div>
-                <div class="service-content">
-                    <div class="service-category">Facial</div>
-                    <h3>Control Acné</h3>
-                    <div class="service-price">$690</div>
-                </div>
-            </div>
-
-            <div class="service-card">
-                <div class="service-image">
-                    <img src="assets/images/skincare-display.jpg" alt="Tratamiento de Manchas">
-                </div>
-                <div class="service-content">
-                    <div class="service-category">Facial</div>
-                    <h3>Manchas</h3>
-                    <div class="service-price">$690</div>
-                </div>
-            </div>
-
-            <!-- Body Services -->
-            <div class="service-card">
-                <div class="service-image">
-                    <img src="assets/images/relaxation.jpg" alt="Masaje Relajante">
-                </div>
-                <div class="service-content">
-                    <div class="service-category">Corporal</div>
-                    <h3>Masaje Relajante</h3>
-                    <div class="service-price">$600</div>
-                </div>
-            </div>
-
-            <div class="service-card">
-                <div class="service-image">
-                    <img src="assets/images/relaxation.jpg" alt="Masaje Descontracturante">
-                </div>
-                <div class="service-content">
-                    <div class="service-category">Corporal</div>
-                    <h3>Masaje Descontracturante</h3>
-                    <div class="service-price">$700</div>
-                </div>
-            </div>
-
-            <div class="service-card">
-                <div class="service-image">
-                    <img src="assets/images/wellness.jpg" alt="Velo de Novia">
-                </div>
-                <div class="service-content">
-                    <div class="service-category">Corporal</div>
-                    <h3>Velo de Novia</h3>
-                    <div class="service-price">$750</div>
-                </div>
-            </div>
-
-            <div class="service-card">
-                <div class="service-image">
-                    <img src="assets/images/skincare-display.jpg" alt="Moldeo de Silueta">
-                </div>
-                <div class="service-content">
-                    <div class="service-category">Corporal</div>
-                    <h3>Moldeo de Silueta</h3>
-                    <div class="service-price">$600</div>
+                <div class="about-text reveal">
+                    <p class="about-label">Conoce a Sarai</p>
+                    <h2 class="about-title">Pasión por el<br>cuidado de tu piel</h2>
+                    <p class="about-subtitle">Cosmetóloga Certificada</p>
+                    <div class="about-body">
+                        <p>Con más de 3 años de experiencia dedicándome a lo que más me apasiona: el cuidado y bienestar de tu piel.</p>
+                        <p>Quiero que te sientas con total confianza y seguridad de que, en mis manos, recibirás una experiencia increíble de relajación y cuidado personal.</p>
+                    </div>
+                    <div class="about-stats">
+                        <div class="stat-item">
+                            <div class="stat-number">3+</div>
+                            <div class="stat-label">Años Experiencia</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number">8</div>
+                            <div class="stat-label">Tratamientos</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number">100%</div>
+                            <div class="stat-label">Dedicación</div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Gallery -->
-    <section class="gallery" id="gallery">
-        <h2 class="section-title">Galería</h2>
-        <div class="gallery-grid">
-            <div class="gallery-item">
-                <img src="assets/images/relaxation.jpg" alt="Relajación y Bienestar">
+    <div class="experience-strip">
+        <div class="marquee-track">
+            <span class="marquee-item">Limpieza Facial</span>
+            <span class="marquee-item">Tratamiento Revitalizante</span>
+            <span class="marquee-item">Control de Acné</span>
+            <span class="marquee-item">Manchas</span>
+            <span class="marquee-item">Masaje Relajante</span>
+            <span class="marquee-item">Masaje Descontracturante</span>
+            <span class="marquee-item">Velo de Novia</span>
+            <span class="marquee-item">Moldeo de Silueta</span>
+            <span class="marquee-item">Limpieza Facial</span>
+            <span class="marquee-item">Tratamiento Revitalizante</span>
+            <span class="marquee-item">Control de Acné</span>
+            <span class="marquee-item">Manchas</span>
+            <span class="marquee-item">Masaje Relajante</span>
+            <span class="marquee-item">Masaje Descontracturante</span>
+            <span class="marquee-item">Velo de Novia</span>
+            <span class="marquee-item">Moldeo de Silueta</span>
+        </div>
+    </div>
+
+    <section class="section services-section" id="services">
+        <div class="container">
+            <p class="section-label reveal">Nuestros Tratamientos</p>
+            <h2 class="section-heading reveal">Servicios</h2>
+            <div class="section-divider reveal"></div>
+            <div class="services-tabs reveal">
+                <button class="tab-btn active" data-filter="all">Todos</button>
+                <button class="tab-btn" data-filter="facial">Facial</button>
+                <button class="tab-btn" data-filter="corporal">Corporal</button>
             </div>
-            <div class="gallery-item">
-                <img src="assets/images/treatment-1.jpg" alt="Tratamiento Facial">
-            </div>
-            <div class="gallery-item">
-                <img src="assets/images/skincare-display.jpg" alt="Productos Premium">
-            </div>
-            <div class="gallery-item">
-                <img src="assets/images/product-handling.jpg" alt="Aplicación Profesional">
-            </div>
-            <div class="gallery-item">
-                <img src="assets/images/wellness.jpg" alt="Cuidado y Bienestar">
+            <div class="services-grid" id="servicesGrid">
+                <div class="service-card reveal" data-category="facial">
+                    <div class="service-img-wrap">
+                        <img src="assets/images/treatment-1.jpg" alt="Limpieza Facial" loading="lazy">
+                        <div class="service-badge">Facial</div>
+                    </div>
+                    <div class="service-body">
+                        <h3 class="service-name">Limpieza Facial</h3>
+                        <div class="service-price">$650 <span>MXN</span></div>
+                    </div>
+                </div>
+                <div class="service-card reveal" data-category="facial">
+                    <div class="service-img-wrap">
+                        <img src="assets/images/product-handling.jpg" alt="Tratamiento Revitalizante" loading="lazy">
+                        <div class="service-badge">Facial</div>
+                    </div>
+                    <div class="service-body">
+                        <h3 class="service-name">Revitalizante</h3>
+                        <div class="service-price">$600 <span>MXN</span></div>
+                    </div>
+                </div>
+                <div class="service-card reveal" data-category="facial">
+                    <div class="service-img-wrap">
+                        <img src="assets/images/treatment-1.jpg" alt="Control Acné" loading="lazy">
+                        <div class="service-badge">Facial</div>
+                    </div>
+                    <div class="service-body">
+                        <h3 class="service-name">Control Acné</h3>
+                        <div class="service-price">$690 <span>MXN</span></div>
+                    </div>
+                </div>
+                <div class="service-card reveal" data-category="facial">
+                    <div class="service-img-wrap">
+                        <img src="assets/images/skincare-display.jpg" alt="Tratamiento de Manchas" loading="lazy">
+                        <div class="service-badge">Facial</div>
+                    </div>
+                    <div class="service-body">
+                        <h3 class="service-name">Manchas</h3>
+                        <div class="service-price">$690 <span>MXN</span></div>
+                    </div>
+                </div>
+                <div class="service-card reveal" data-category="corporal">
+                    <div class="service-img-wrap">
+                        <img src="assets/images/relaxation.jpg" alt="Masaje Relajante" loading="lazy">
+                        <div class="service-badge">Corporal</div>
+                    </div>
+                    <div class="service-body">
+                        <h3 class="service-name">Masaje Relajante</h3>
+                        <div class="service-price">$600 <span>MXN</span></div>
+                    </div>
+                </div>
+                <div class="service-card reveal" data-category="corporal">
+                    <div class="service-img-wrap">
+                        <img src="assets/images/relaxation.jpg" alt="Masaje Descontracturante" loading="lazy">
+                        <div class="service-badge">Corporal</div>
+                    </div>
+                    <div class="service-body">
+                        <h3 class="service-name">Masaje Descontracturante</h3>
+                        <div class="service-price">$700 <span>MXN</span></div>
+                    </div>
+                </div>
+                <div class="service-card reveal" data-category="corporal">
+                    <div class="service-img-wrap">
+                        <img src="assets/images/wellness.jpg" alt="Velo de Novia" loading="lazy">
+                        <div class="service-badge">Corporal</div>
+                    </div>
+                    <div class="service-body">
+                        <h3 class="service-name">Velo de Novia</h3>
+                        <div class="service-price">$750 <span>MXN</span></div>
+                    </div>
+                </div>
+                <div class="service-card reveal" data-category="corporal">
+                    <div class="service-img-wrap">
+                        <img src="assets/images/skincare-display.jpg" alt="Moldeo de Silueta" loading="lazy">
+                        <div class="service-badge">Corporal</div>
+                    </div>
+                    <div class="service-body">
+                        <h3 class="service-name">Moldeo de Silueta</h3>
+                        <div class="service-price">$600 <span>MXN</span></div>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
 
-    <!-- Info Section -->
-    <section class="info-section">
-        <div class="info-container">
-            <div class="info-card">
-                <h3>📍 Ubicación</h3>
-                <p>24 de Febrero Bonfil<br>
-                Atizapan de Zaragoza, Edomex<br>
-                México</p>
-            </div>
-
-            <div class="info-card">
-                <h3>⏰ Horarios</h3>
-                <ul class="hours-list">
-                    <li><strong>Viernes:</strong> 3:00 PM - 8:00 PM</li>
-                    <li><strong>Sábado:</strong> 12:00 PM - 5:00 PM</li>
-                    <li><strong>Domingo:</strong> 10:00 AM - 4:00 PM</li>
-                </ul>
-            </div>
-
-            <div class="info-card">
-                <h3>✨ Experiencia</h3>
-                <p>Más de 3 años dedicados al cuidado profesional de la piel con servicios personalizados para tu bienestar total.</p>
+    <section class="section" id="testimonials">
+        <div class="container">
+            <p class="section-label reveal">Lo Que Dicen</p>
+            <h2 class="section-heading reveal">Experiencias Reales</h2>
+            <div class="section-divider reveal"></div>
+            <div class="testimonials-grid">
+                <div class="testimonial-card reveal">
+                    <div class="testimonial-stars">&#9733; &#9733; &#9733; &#9733; &#9733;</div>
+                    <p class="testimonial-text">"Desde mi primera limpieza facial, mi piel cambió completamente. Sarai es súper profesional y te hace sentir como en casa. ¡Totalmente recomendada!"</p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">M</div>
+                        <div>
+                            <div class="author-name">Mariana G.</div>
+                            <div class="author-detail">Clienta desde 2024</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card reveal">
+                    <div class="testimonial-stars">&#9733; &#9733; &#9733; &#9733; &#9733;</div>
+                    <p class="testimonial-text">"El masaje descontracturante fue exactamente lo que necesitaba. Un ambiente súper relajante y atención personalizada. Volveré sin duda."</p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">L</div>
+                        <div>
+                            <div class="author-name">Laura P.</div>
+                            <div class="author-detail">Clienta frecuente</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card reveal">
+                    <div class="testimonial-stars">&#9733; &#9733; &#9733; &#9733; &#9733;</div>
+                    <p class="testimonial-text">"Me hice el Velo de Novia antes de mi boda y quedé increíble. Sarai tiene un talento especial para cuidar tu piel con mucho cariño."</p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">A</div>
+                        <div>
+                            <div class="author-name">Andrea R.</div>
+                            <div class="author-detail">Novia 2025</div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
 
-    <!-- Contact -->
-    <section class="contact" id="contact">
-        <h2 class="section-title">Contáctanos</h2>
-        <p>¡Estoy lista para recibirte! Agenda tu cita hoy mismo.</p>
-        <div class="contact-buttons">
-            <a href="https://wa.me/5215568720547" class="cta-button">WHATSAPP</a>
-            <a href="tel:+5215568720547" class="btn-secondary">LLAMAR</a>
+    <section class="section" id="gallery">
+        <div class="container">
+            <p class="section-label reveal">Nuestro Espacio</p>
+            <h2 class="section-heading reveal">Galería</h2>
+            <div class="section-divider reveal"></div>
+            <div class="gallery-grid reveal">
+                <div class="gallery-item">
+                    <img src="assets/images/relaxation.jpg" alt="Relajación y Bienestar" loading="lazy">
+                    <div class="gallery-caption">Relajación y Bienestar</div>
+                </div>
+                <div class="gallery-item">
+                    <img src="assets/images/treatment-1.jpg" alt="Tratamiento Facial" loading="lazy">
+                    <div class="gallery-caption">Tratamiento Facial</div>
+                </div>
+                <div class="gallery-item">
+                    <img src="assets/images/skincare-display.jpg" alt="Productos Premium" loading="lazy">
+                    <div class="gallery-caption">Productos Premium</div>
+                </div>
+                <div class="gallery-item">
+                    <img src="assets/images/product-handling.jpg" alt="Aplicación Profesional" loading="lazy">
+                    <div class="gallery-caption">Aplicación Profesional</div>
+                </div>
+                <div class="gallery-item">
+                    <img src="assets/images/wellness.jpg" alt="Cuidado y Bienestar" loading="lazy">
+                    <div class="gallery-caption">Cuidado y Bienestar</div>
+                </div>
+            </div>
         </div>
     </section>
 
-    <!-- Footer -->
-    <footer>
-        <p>&copy; 2026 Skin Studio S. Todos los derechos reservados.</p>
-        <p>Cuidado y bienestar de la piel con amor y profesionalismo.</p>
+    <section class="section info-section" id="info">
+        <div class="container">
+            <p class="section-label reveal" style="color: var(--sand);">Encuéntranos</p>
+            <h2 class="section-heading reveal" style="color: var(--cream);">Información</h2>
+            <div class="section-divider reveal"></div>
+            <div class="info-grid">
+                <div class="info-card reveal">
+                    <div class="info-icon">&#9903;</div>
+                    <h3>Ubicación</h3>
+                    <p>24 de Febrero Bonfil<br>Atizapán de Zaragoza, Edomex<br>México</p>
+                </div>
+                <div class="info-card reveal">
+                    <div class="info-icon">&#9201;</div>
+                    <h3>Horarios</h3>
+                    <ul class="hours-list">
+                        <li><strong>Viernes</strong> — 3:00 PM – 8:00 PM</li>
+                        <li><strong>Sábado</strong> — 12:00 PM – 5:00 PM</li>
+                        <li><strong>Domingo</strong> — 10:00 AM – 4:00 PM</li>
+                    </ul>
+                </div>
+                <div class="info-card reveal">
+                    <div class="info-icon">&#10024;</div>
+                    <h3>Experiencia</h3>
+                    <p>Más de 3 años dedicados al cuidado profesional de la piel con servicios personalizados para tu bienestar total.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section cta-section" id="contact">
+        <div class="container">
+            <p class="section-label reveal">Reserva tu Cita</p>
+            <h2 class="section-heading reveal">¿Lista para consentirte?</h2>
+            <div class="section-divider reveal"></div>
+            <div class="cta-card reveal">
+                <p>Estoy lista para recibirte y brindarte una experiencia de cuidado personal que mereces. Agenda tu cita hoy mismo.</p>
+                <div class="cta-buttons">
+                    <a href="https://wa.me/5215568720547" class="btn btn-whatsapp" target="_blank" rel="noopener">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+                        WhatsApp
+                    </a>
+                    <a href="tel:+5215568720547" class="btn btn-outline">Llamar</a>
+                </div>
+                <p class="cta-phone-note">Tel: +52 1 55 6872 0547</p>
+            </div>
+        </div>
+    </section>
+
+    <footer class="site-footer">
+        <div class="footer-logo">SKIN STUDIO S</div>
+        <p class="footer-tagline">Cuidado y bienestar de la piel con amor y profesionalismo</p>
+        <div class="footer-links">
+            <a href="#about">Sobre Sarai</a>
+            <a href="#services">Servicios</a>
+            <a href="#gallery">Galería</a>
+            <a href="#contact">Contacto</a>
+        </div>
+        <p class="footer-copy">&copy; 2026 Skin Studio S. Todos los derechos reservados.</p>
     </footer>
+
+    <script>
+        var header = document.getElementById('header');
+        var hero = document.getElementById('hero');
+        function onScroll() { header.classList.toggle('scrolled', window.scrollY > 60); }
+        window.addEventListener('scroll', onScroll, { passive: true });
+        onScroll();
+        hero.classList.add('visible');
+
+        var burger = document.getElementById('burger');
+        var navLinks = document.getElementById('navLinks');
+        burger.addEventListener('click', function() {
+            burger.classList.toggle('active');
+            navLinks.classList.toggle('open');
+        });
+        navLinks.querySelectorAll('a').forEach(function(link) {
+            link.addEventListener('click', function() {
+                burger.classList.remove('active');
+                navLinks.classList.remove('open');
+            });
+        });
+
+        var reveals = document.querySelectorAll('.reveal');
+        var observer = new IntersectionObserver(function(entries) {
+            entries.forEach(function(entry, i) {
+                if (entry.isIntersecting) {
+                    setTimeout(function() { entry.target.classList.add('visible'); }, i * 80);
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+        reveals.forEach(function(el) { observer.observe(el); });
+
+        var tabs = document.querySelectorAll('.tab-btn');
+        var cards = document.querySelectorAll('.service-card');
+        tabs.forEach(function(tab) {
+            tab.addEventListener('click', function() {
+                tabs.forEach(function(t) { t.classList.remove('active'); });
+                tab.classList.add('active');
+                var filter = tab.dataset.filter;
+                cards.forEach(function(card) {
+                    if (filter === 'all' || card.dataset.category === filter) {
+                        card.style.display = '';
+                        requestAnimationFrame(function() { card.style.opacity = '1'; });
+                    } else {
+                        card.style.opacity = '0';
+                        setTimeout(function() { card.style.display = 'none'; }, 300);
+                    }
+                });
+            });
+        });
+    </script>
 </body>
 </html>
