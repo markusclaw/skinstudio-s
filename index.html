@@ -142,8 +142,8 @@
         .testimonials-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; margin-top: 3.5rem; }
         .testimonial-card { background: var(--warm-white); border-radius: var(--radius-lg); padding: 2.5rem; box-shadow: var(--shadow-sm); border: 1px solid rgba(212,197,178,0.3); transition: all var(--transition); }
         .testimonial-card:hover { box-shadow: var(--shadow-md); transform: translateY(-4px); }
-        .testimonial-stars { color: var(--gold-accent); font-size: 0.85rem; letter-spacing: 0.15em; margin-bottom: 1.25rem; }
-        .testimonial-text { font-family: 'Cormorant Garamond', serif; font-size: 1.2rem; font-style: italic; color: var(--charcoal); line-height: 1.7; margin-bottom: 1.5rem; }
+        .testimonial-stars { color: #D4A843; font-size: 0.95rem; letter-spacing: 0.15em; margin-bottom: 1.25rem; }
+        .testimonial-text { font-family: 'Cormorant Garamond', serif; font-size: 1.2rem; font-style: italic; color: var(--text-dark); line-height: 1.7; margin-bottom: 1.5rem; }
         .testimonial-author { display: flex; align-items: center; gap: 1rem; }
         .author-avatar { width: 44px; height: 44px; border-radius: 50%; background: var(--sand-light); display: flex; align-items: center; justify-content: center; font-family: 'Cormorant Garamond', serif; font-size: 1.1rem; font-weight: 600; color: var(--charcoal); flex-shrink: 0; }
         .author-name { font-weight: 700; font-size: 0.85rem; color: var(--charcoal); }
@@ -166,12 +166,12 @@
         .info-section { background: var(--charcoal); color: var(--cream); }
         .info-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 3rem; margin-top: 3.5rem; }
         .info-card { text-align: center; padding: 2.5rem 1.5rem; border-radius: var(--radius-lg); background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.06); }
-        .info-icon { font-size: 1.8rem; margin-bottom: 1.25rem; }
-        .info-card h3 { font-family: 'Cormorant Garamond', serif; font-size: 1.4rem; font-weight: 500; color: var(--sand-light); margin-bottom: 1rem; }
-        .info-card p, .info-card li { color: rgba(255,255,255,0.6); font-size: 0.95rem; line-height: 1.8; }
+        .info-icon { font-size: 1.8rem; margin-bottom: 1.25rem; color: var(--gold-accent); }
+        .info-card h3 { font-family: 'Cormorant Garamond', serif; font-size: 1.4rem; font-weight: 500; color: var(--cream); margin-bottom: 1rem; }
+        .info-card p, .info-card li { color: rgba(255,255,255,0.85); font-size: 0.95rem; line-height: 1.8; }
         .hours-list { list-style: none; }
         .hours-list li { padding: 0.35rem 0; }
-        .hours-list strong { color: var(--sand-light); font-weight: 700; }
+        .hours-list strong { color: var(--cream); font-weight: 700; }
 
         /* CTA */
         .cta-section { background: linear-gradient(135deg, var(--cream) 0%, var(--cream-dark) 100%); text-align: center; }
@@ -347,7 +347,7 @@
                 </div>
                 <div class="service-card reveal" data-category="facial">
                     <div class="service-img-wrap">
-                        <img src="assets/images/treatment-1.jpg" alt="Control Acné" loading="lazy">
+                        <img src="assets/images/skincare-display.jpg" alt="Control Acné" loading="lazy">
                         <div class="service-badge">Facial</div>
                     </div>
                     <div class="service-body">
@@ -357,7 +357,7 @@
                 </div>
                 <div class="service-card reveal" data-category="facial">
                     <div class="service-img-wrap">
-                        <img src="assets/images/skincare-display.jpg" alt="Tratamiento de Manchas" loading="lazy">
+                        <img src="assets/images/wellness.jpg" alt="Tratamiento de Manchas" loading="lazy">
                         <div class="service-badge">Facial</div>
                     </div>
                     <div class="service-body">
@@ -377,7 +377,7 @@
                 </div>
                 <div class="service-card reveal" data-category="corporal">
                     <div class="service-img-wrap">
-                        <img src="assets/images/relaxation.jpg" alt="Masaje Descontracturante" loading="lazy">
+                        <img src="assets/images/treatment-1.jpg" alt="Masaje Descontracturante" loading="lazy">
                         <div class="service-badge">Corporal</div>
                     </div>
                     <div class="service-body">
@@ -387,7 +387,7 @@
                 </div>
                 <div class="service-card reveal" data-category="corporal">
                     <div class="service-img-wrap">
-                        <img src="assets/images/wellness.jpg" alt="Velo de Novia" loading="lazy">
+                        <img src="assets/images/product-handling.jpg" alt="Velo de Novia" loading="lazy">
                         <div class="service-badge">Corporal</div>
                     </div>
                     <div class="service-body">
@@ -397,7 +397,7 @@
                 </div>
                 <div class="service-card reveal" data-category="corporal">
                     <div class="service-img-wrap">
-                        <img src="assets/images/skincare-display.jpg" alt="Moldeo de Silueta" loading="lazy">
+                        <img src="assets/images/relaxation.jpg" alt="Moldeo de Silueta" loading="lazy">
                         <div class="service-badge">Corporal</div>
                     </div>
                     <div class="service-body">
@@ -484,7 +484,7 @@
 
     <section class="section info-section" id="info">
         <div class="container">
-            <p class="section-label reveal" style="color: var(--sand);">Encuéntranos</p>
+            <p class="section-label reveal" style="color: var(--cream);">Encuéntranos</p>
             <h2 class="section-heading reveal" style="color: var(--cream);">Información</h2>
             <div class="section-divider reveal"></div>
             <div class="info-grid">
@@ -567,12 +567,16 @@
         var observer = new IntersectionObserver(function(entries) {
             entries.forEach(function(entry, i) {
                 if (entry.isIntersecting) {
-                    setTimeout(function() { entry.target.classList.add('visible'); }, i * 80);
+                    setTimeout(function() { entry.target.classList.add('visible'); }, Math.min(i * 60, 400));
                     observer.unobserve(entry.target);
                 }
             });
-        }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+        }, { threshold: 0.05, rootMargin: '0px 0px 40px 0px' });
         reveals.forEach(function(el) { observer.observe(el); });
+        // Safety fallback: ensure all reveal elements become visible
+        setTimeout(function() {
+            reveals.forEach(function(el) { el.classList.add('visible'); });
+        }, 4000);
 
         var tabs = document.querySelectorAll('.tab-btn');
         var cards = document.querySelectorAll('.service-card');
